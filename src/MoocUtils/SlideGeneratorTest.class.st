@@ -5,6 +5,20 @@ Class {
 }
 
 { #category : #tests }
+SlideGeneratorTest >> testExtractSimple [
+
+	| stream gen slides |
+	stream := 
+	'│   ├── W1-LiveA-EN.mov
+		Selecting Expressions' readStream.
+	gen := SlideGenerator new. 
+	slides := gen parse: stream.
+	self assert: slides isEmpty not.
+	self assert: slides first identification equals: 'W1-LiveA-EN'.
+	self assert: slides first title equals: 'Selecting Expressions'.
+]
+
+{ #category : #tests }
 SlideGeneratorTest >> testIdentificationExtraction [
 
 	| stream gen |
