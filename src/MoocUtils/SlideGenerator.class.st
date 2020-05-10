@@ -57,6 +57,19 @@ SlideGenerator >> addSlideDescription [
 						 identification: self identification)
 ]
 
+{ #category : #generation }
+SlideGenerator >> generateOneSlide: aSlide [
+
+	^ 
+	'{
+    "title": "{title}",
+    "subtitle": "",
+	 "slidesid": "{identification}"
+}' format: { 'title' -> aSlide title . identification -> aSlide identification } asDictionary 
+
+	
+]
+
 { #category : #accessing }
 SlideGenerator >> identification [
 	^ identification
