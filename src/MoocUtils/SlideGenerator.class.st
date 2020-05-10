@@ -78,8 +78,7 @@ SlideGenerator >> parse: aStream [
 			(line beginsWith: '│   ├──')
 				ifTrue: [ self parseFirstLine: line.
 							 self parseSecondLine: inStream nextLine.
-							self addSlideDescription]
-				ifFalse: [ line := inStream nextLine ]
+							 self addSlideDescription ]
 			].
 	^ slides 	
 ]

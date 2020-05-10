@@ -5,6 +5,66 @@ Class {
 }
 
 { #category : #tests }
+SlideGeneratorTest >> testExtractInPresenceOfNoise [
+
+	| stream gen slides |
+	stream := 
+	'│   ├── W1-LiveA-EN.mov
+		Selecting Expressions
+		
+│   ├── W1-LiveA-FR.mov
+		De la selection d''expressions
+
+│   ├── W1-LiveB-EN.mov
+		Prof Stef
+' readStream.
+	gen := SlideGenerator new. 
+	slides := gen parse: stream.
+	self assert: slides size equals: 3. 
+	
+]
+
+{ #category : #tests }
+SlideGeneratorTest >> testExtractInPresenceOfNoise2 [
+
+	| stream gen slides |
+	stream := 
+	'This file describes the titles for each of the live videos.
+
+├── W1
+│   ├── W1-LiveA-EN.mov
+		Selecting Expressions
+│   ├── W1-LiveA-FR.mov
+		De la selection d''expressions
+' readStream.
+	gen := SlideGenerator new. 
+	slides := gen parse: stream.
+	self assert: slides size equals: 2. 
+	
+]
+
+{ #category : #tests }
+SlideGeneratorTest >> testExtractMoreThanOne [
+
+	| stream gen slides |
+	stream := 
+	'│   ├── W1-LiveA-EN.mov
+		Selecting Expressions
+│   ├── W1-LiveA-FR.mov
+		De la selection d''expressions
+│   ├── W1-LiveB-EN.mov
+		Prof Stef
+│   ├── W1-LiveB-FR.mov
+		Prof Stef' readStream.
+	gen := SlideGenerator new. 
+	slides := gen parse: stream.
+	self assert: slides size equals: 4. 
+	self assert: slides last title equals: 'Prof Stef'.
+	
+	
+]
+
+{ #category : #tests }
 SlideGeneratorTest >> testExtractSimple [
 
 	| stream gen slides |
