@@ -77,8 +77,8 @@ SlideGenerator >> addSlideDescription [
 { #category : #generation }
 SlideGenerator >> generateOneSlide: aSlide [
 
-	(FileSystem workingDirectory / (aSlide identification, '.pillar')) asFileReference writeStream 
-		nextPutAll: (self generateOneSlideContents: aSlide)
+	(FileSystem workingDirectory / (aSlide identification, '.pillar')) asFileReference writeStreamDo: [ :str |  
+		str nextPutAll: (self generateOneSlideContents: aSlide)]
 	
 ]
 
@@ -89,7 +89,7 @@ SlideGenerator >> generateOneSlideContents: aSlide [
 	'\{
     "title": "{title}",
     "subtitle": "",
-	 "slidesid": "{identification}"
+    "slidesid": "{identification}"
 \}' format: { 'title' -> aSlide title . 'identification' -> aSlide identification } asDictionary 
 
 	

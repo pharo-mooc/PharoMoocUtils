@@ -122,7 +122,7 @@ SlideGeneratorTest >> testGenerateOneSlideContents [
  '{
     "title": "Selecting Expressions",
     "subtitle": "",
-	 "slidesid": "W1-LiveA-EN"
+    "slidesid": "W1-LiveA-EN"
 }'
 ]
 
