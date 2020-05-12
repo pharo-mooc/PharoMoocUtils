@@ -38,6 +38,23 @@ This file describes the titles for each of the live videos.
 		Redo: Save your code with Iceberg
 │   ├── W1-Redo4-FR.mov
 		Redo: Sauver son code avec Iceberg
+		
+
+
+	| stream gen slides |
+	stream := 
+	'│   ├── W1-LiveA-EN.mov
+		Selecting Expressions
+		
+│   ├── W1-LiveA-FR.mov
+		De la selection d''expressions
+
+│   ├── W1-LiveB-EN.mov
+		Prof Stef
+' readStream.
+	gen := SlideGenerator new. 
+	slides := gen parse: stream.
+	(gen generateOneSlide: slides first) 
 "
 Class {
 	#name : #SlideGenerator,
@@ -60,12 +77,20 @@ SlideGenerator >> addSlideDescription [
 { #category : #generation }
 SlideGenerator >> generateOneSlide: aSlide [
 
+	(FileSystem workingDirectory / (aSlide identification, '.pillar')) asFileReference writeStream 
+		nextPutAll: (self generateOneSlideContents: aSlide)
+	
+]
+
+{ #category : #generation }
+SlideGenerator >> generateOneSlideContents: aSlide [
+
 	^ 
-	'{
+	'\{
     "title": "{title}",
     "subtitle": "",
 	 "slidesid": "{identification}"
-}' format: { 'title' -> aSlide title . identification -> aSlide identification } asDictionary 
+\}' format: { 'title' -> aSlide title . 'identification' -> aSlide identification } asDictionary 
 
 	
 ]

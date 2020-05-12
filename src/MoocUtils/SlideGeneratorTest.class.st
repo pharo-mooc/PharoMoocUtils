@@ -94,8 +94,36 @@ SlideGeneratorTest >> testGenerateOneSlide [
 ' readStream.
 	gen := SlideGenerator new. 
 	slides := gen parse: stream.
-	self assert: (gen generateOneSlide: slides first) equals: ''
-	
+	self assert: (gen generateOneSlideContents: slides first) equals:
+ '{
+    "title": "Selecting Expressions",
+    "subtitle": "",
+	 "slidesid": "W1-LiveA-EN"
+}'
+]
+
+{ #category : #tests }
+SlideGeneratorTest >> testGenerateOneSlideContents [
+
+	| stream gen slides |
+	stream := 
+	'│   ├── W1-LiveA-EN.mov
+		Selecting Expressions
+		
+│   ├── W1-LiveA-FR.mov
+		De la selection d''expressions
+
+│   ├── W1-LiveB-EN.mov
+		Prof Stef
+' readStream.
+	gen := SlideGenerator new. 
+	slides := gen parse: stream.
+	self assert: (gen generateOneSlideContents: slides first) equals:
+ '{
+    "title": "Selecting Expressions",
+    "subtitle": "",
+	 "slidesid": "W1-LiveA-EN"
+}'
 ]
 
 { #category : #tests }
