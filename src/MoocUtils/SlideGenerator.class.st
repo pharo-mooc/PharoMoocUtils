@@ -71,8 +71,10 @@ SlideGenerator >> folder: aFileReference [
 
 { #category : #generation }
 SlideGenerator >> generateOneSlide: aSlide [
-
-	(self folder / (aSlide identification, '.pillar')) asFileReference writeStreamDo: [ :str |  
+	| ref |
+	ref := 	(self folder / (aSlide identification, '.pillar')) asFileReference.
+	ref ensureDelete.
+	ref writeStreamDo: [ :str |  
 		str nextPutAll: (self generateOneSlideContents: aSlide)]
 	
 ]
