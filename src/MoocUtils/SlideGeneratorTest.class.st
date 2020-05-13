@@ -9,13 +9,13 @@ SlideGeneratorTest >> testExtractInPresenceOfNoise [
 
 	| stream gen slides |
 	stream := 
-	'│   ├── W1-LiveA-EN.mov
+	'>  W1-LiveA-EN.mov
 		Selecting Expressions
 		
-│   ├── W1-LiveA-FR.mov
+>  W1-LiveA-FR.mov
 		De la selection d''expressions
 
-│   ├── W1-LiveB-EN.mov
+>  W1-LiveB-EN.mov
 		Prof Stef
 ' readStream.
 	gen := SlideGenerator new. 
@@ -31,10 +31,10 @@ SlideGeneratorTest >> testExtractInPresenceOfNoise2 [
 	stream := 
 	'This file describes the titles for each of the live videos.
 
-├── W1
-│   ├── W1-LiveA-EN.mov
+ W1
+>  W1-LiveA-EN.mov
 		Selecting Expressions
-│   ├── W1-LiveA-FR.mov
+>  W1-LiveA-FR.mov
 		De la selection d''expressions
 ' readStream.
 	gen := SlideGenerator new. 
@@ -48,13 +48,13 @@ SlideGeneratorTest >> testExtractMoreThanOne [
 
 	| stream gen slides |
 	stream := 
-	'│   ├── W1-LiveA-EN.mov
+	'> W1-LiveA-EN.mov
 		Selecting Expressions
-│   ├── W1-LiveA-FR.mov
+> W1-LiveA-FR.mov
 		De la selection d''expressions
-│   ├── W1-LiveB-EN.mov
+> W1-LiveB-EN.mov
 		Prof Stef
-│   ├── W1-LiveB-FR.mov
+> W1-LiveB-FR.mov
 		Prof Stef' readStream.
 	gen := SlideGenerator new. 
 	slides := gen parse: stream.
@@ -69,7 +69,7 @@ SlideGeneratorTest >> testExtractSimple [
 
 	| stream gen slides |
 	stream := 
-	'│   ├── W1-LiveA-EN.mov
+	'> W1-LiveA-EN.mov
 		Selecting Expressions' readStream.
 	gen := SlideGenerator new. 
 	slides := gen parse: stream.
@@ -83,13 +83,13 @@ SlideGeneratorTest >> testGenerateOneSlideContents [
 
 	| stream gen slides |
 	stream := 
-	'│   ├── W1-LiveA-EN.mov
+	'>  W1-LiveA-EN.mov
 		Selecting Expressions
 		
-│   ├── W1-LiveA-FR.mov
+>  W1-LiveA-FR.mov
 		De la selection d''expressions
 
-│   ├── W1-LiveB-EN.mov
+>  W1-LiveB-EN.mov
 		Prof Stef
 ' readStream.
 	gen := SlideGenerator new. 
@@ -107,7 +107,7 @@ SlideGeneratorTest >> testIdentificationExtraction [
 
 	| stream gen |
 	stream := 
-	'│   ├── W1-LiveA-EN.mov
+	'> W1-LiveA-EN.mov
 		Selecting Expressions' readStream.
 	gen := SlideGenerator new. 
 	gen := gen parseFirstLine: stream nextLine.
@@ -121,7 +121,7 @@ SlideGeneratorTest >> testTitleExtraction [
 
 	| stream gen |
 	stream := 
-	'│   ├── W1-LiveA-EN.mov
+	'> W1-LiveA-EN.mov
 		Selecting Expressions' readStream.
 	gen := SlideGenerator new. 
 	gen := gen parseSecondLine: (stream nextLine; nextLine).
