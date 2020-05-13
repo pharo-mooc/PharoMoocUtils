@@ -41,8 +41,8 @@ This file describes the titles for each of the live videos.
 		
 
 
-	| stream gen slides |
-	stream := 
+| stream gen slides |
+stream := 
 	'│   ├── W1-LiveA-EN.mov
 		Selecting Expressions
 		
@@ -53,8 +53,21 @@ This file describes the titles for each of the live videos.
 		Prof Stef
 ' readStream.
 	gen := SlideGenerator new. 
+	gen folder: '/Users/ducasse/Workspace/FirstCircle/MyBooks/Bk-Writing/PharoMooc/SlidesForVideos' asFileReference.
 	slides := gen parse: stream.
-	(gen generateOneSlide: slides first) 
+	slides do: [ :aSlide | gen generateOneSlide: aSlide ] 
+	
+	
+	| gen slides stream |
+	stream := '/Users/ducasse/Workspace/FirstCircle/MyBooks/Bk-Writing/PharoMooc/SlidesForVideos/TitlesForVideos.txt' asFileReference
+readStream.
+	gen := SlideGenerator new. 
+	gen folder: '/Users/ducasse/Workspace/FirstCircle/MyBooks/Bk-Writing/PharoMooc/SlidesForVideos' asFileReference.
+	slides := gen parse: stream.
+	slides do: [ :aSlide | gen generateOneSlide: aSlide ] 
+
+
+
 "
 Class {
 	#name : #SlideGenerator,
@@ -62,7 +75,8 @@ Class {
 	#instVars : [
 		'identification',
 		'title',
-		'slides'
+		'slides',
+		'folder'
 	],
 	#category : #MoocUtils
 }
@@ -75,9 +89,21 @@ SlideGenerator >> addSlideDescription [
 ]
 
 { #category : #generation }
+SlideGenerator >> folder [
+
+	^ folder ifNil: [ folder := FileSystem workingDirectory ]
+]
+
+{ #category : #generation }
+SlideGenerator >> folder: aFileReference [
+
+	folder := aFileReference 
+]
+
+{ #category : #generation }
 SlideGenerator >> generateOneSlide: aSlide [
 
-	(FileSystem workingDirectory / (aSlide identification, '.pillar')) asFileReference writeStreamDo: [ :str |  
+	(self folder / (aSlide identification, '.pillar')) asFileReference writeStreamDo: [ :str |  
 		str nextPutAll: (self generateOneSlideContents: aSlide)]
 	
 ]
@@ -110,6 +136,7 @@ SlideGenerator >> initialize [
 SlideGenerator >> parse: aStream [
 	
 	| inStream line |
+	self halt.
 	inStream := aStream readStream.
 	[ line := inStream nextLine.
 	line isNil ] whileFalse: [ 
