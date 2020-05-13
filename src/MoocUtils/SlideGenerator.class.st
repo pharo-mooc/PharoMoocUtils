@@ -80,13 +80,16 @@ SlideGenerator >> generateOneSlide: aSlide [
 { #category : #generation }
 SlideGenerator >> generateOneSlideContents: aSlide [
 
-	^ 
-	'\{
+	| author |
+	('*EN*' match: aSlide identification)
+		ifTrue: [ author := 'S. Ducasse and L. Fabresse with Q. Ducasse' ]
+		ifFalse: [ author := 'S. Ducasse et L. Fabresse avec Q. Ducasse' ].
+	^ '\{
     "title": "{title}",
     "author": "S. Ducasse and L. Fabresse with Q. Ducasse",
-    "subtitle": "",
+    "subtitle": "{author}",
     "slidesid": "{identification}"
-\}' format: { 'title' -> aSlide title . 'identification' -> aSlide identification } asDictionary 
+\}' format: { 'title' -> aSlide title . 'author' -> author . 'identification' -> aSlide identification } asDictionary 
 
 	
 ]
